@@ -1,0 +1,73 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: ${APP_NAME}
+#   namespace: ${NAMESPACE}
+#   labels:
+#     app: ${APP_NAME}
+#     backstage.io/kubernetes-id: ${APP_NAME}
+#     environment: ${NAMESPACE}
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: ${APP_NAME}
+#   template:
+#     metadata:
+#       labels:
+#         app: ${APP_NAME}
+#         backstage.io/kubernetes-id: ${APP_NAME}
+#         environment: ${NAMESPACE}
+#     spec:
+#       containers:
+#         - name: ${APP_NAME}
+#           image: ${DOCKER_IMAGE}
+#           ports:
+#             - containerPort: ${APP_PORT}
+#           env:
+#             - name: APP_ENV
+#               value: "${NAMESPACE}"
+
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${APP_NAME}
+  namespace: ${NAMESPACE}
+  labels:
+    app: ${APP_NAME}
+    backstage.io/kubernetes-id: ${APP_NAME}
+    environment: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${APP_NAME}
+  template:
+    metadata:
+      labels:
+        app: ${APP_NAME}
+        backstage.io/kubernetes-id: ${APP_NAME}
+        environment: ${NAMESPACE}
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "${APP_PORT}"
+    spec:
+      containers:
+        - name: ${APP_NAME}
+          image: ${DOCKER_IMAGE}
+          ports:
+            - containerPort: ${APP_PORT}
+          env:
+            - name: APP_ENV
+              value: "${NAMESPACE}"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "10m"
+              ephemeral-storage: "50Mi"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
+              ephemeral-storage: "100Mi"

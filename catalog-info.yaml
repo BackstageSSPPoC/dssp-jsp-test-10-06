@@ -1,0 +1,45 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+
+metadata:
+  name: dssp-jsp-test-10-06
+  description: Service dssp-jsp-test-10-06
+
+  annotations:
+    github.com/project-slug: BackstageSSPPoC/dssp-jsp-test-10-06
+    backstage.io/techdocs-ref: dir:.
+    jenkins.io/job-full-name: Backstage_SSP_PoC/dssp-jsp-test-10-06/main
+    argocd/app-name: dssp-jsp-test-10-06-dev
+    backstage.io/kubernetes-id: dssp-jsp-test-10-06
+    sonarqube.org/project-key: dssp-jsp-test-10-06
+    # prometheus.io/rule: "kube_pod_container_resource_requests{pod=~'dssp-jsp-test-10-06.*'}|resource,kube_pod_container_status_running{pod=~'dssp-jsp-test-10-06.*'}|container"
+    # prometheus.io/alert: "all"
+    # prometheus.io/labels: "namespace=dev"
+    prometheus.io/rule: "kube_pod_container_resource_requests{pod=~'dssp-jsp-test-10-06.*'}|resource,kube_pod_container_status_restarts_total{pod=~'dssp-jsp-test-10-06.*'}|container"
+    prometheus.io/alert: "KubePodCrashLooping,KubeDeploymentReplicasMismatch,KubePodNotReady,KubeContainerWaiting,KubeContainerOOMKilled,KubeDeploymentRolloutStuck"
+    prometheus.io/labels: "namespace=dev"
+
+spec:
+  type: service
+  owner: development
+  lifecycle: experimental
+
+# apiVersion: backstage.io/v1alpha1
+# kind: Component
+
+# metadata:
+#   name: dssp-jsp-test-10-06
+#   description: Service dssp-jsp-test-10-06
+
+#   annotations:
+#     github.com/project-slug: BackstageSSPPoC/dssp-jsp-test-10-06
+#     backstage.io/techdocs-ref: dir:.
+#     jenkins.io/job-full-name: Backstage_SSP_PoC/dssp-jsp-test-10-06/main
+#     argocd/app-name: dssp-jsp-test-10-06
+#     backstage.io/kubernetes-id: dssp-jsp-test-10-06
+#     sonarqube.org/project-key: dssp-jsp-test-10-06
+
+# spec:
+#   type: service
+#   owner: development
+#   lifecycle: experimental

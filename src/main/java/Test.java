@@ -1,5 +1,5 @@
 public class Test {
     public static void main(String[] args) {
-        int x = ;   // Intentional compilation error
+        int x = 10 ;   // Intentional compilation error
     }
 }
